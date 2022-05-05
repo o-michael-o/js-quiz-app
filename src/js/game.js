@@ -1,7 +1,8 @@
-// console.log("Connected to game.js");
-
 const $question = document.querySelector("#question");
 const $choices = Array.from(document.querySelectorAll(".choice-text"));
+const $progressBarText = document.querySelector("#progressText");
+const $userScoreText = document.querySelector("#userScore");
+const $progressBarFull = document.querySelector("#progressBarFull");
 
 let currentQuestion = {};
 let isAcceptingChoice = false;
@@ -41,6 +42,7 @@ let questions = [
 
 // CONSTANTS
 const SCORE_FOR_CORRECT = 10;
+const SCORE_FOR_INCORRECT = -2;
 const MAX_QUESTION_NUM = 3;
 
 const startGame = () => {
@@ -54,10 +56,19 @@ const startGame = () => {
 const getNewQuestion = () => {
   // check if any available questions in array or if asked the max number of questions
   if (questionsArray.length === 0 || questionCounter >= MAX_QUESTION_NUM) {
-    return window.location.assign("./index.html");
+    localStorage.setItem("recentUserScore", userScore);
+    return window.location.assign("../end.html");
   }
   // increment counter
   questionCounter++;
+
+  // change game info text
+  $progressBarText.textContent = `Question ${questionCounter}/${MAX_QUESTION_NUM}`;
+
+  // update progress bar
+  $progressBarFull.style.width = `${
+    (questionCounter / MAX_QUESTION_NUM) * 100
+  }%`;
 
   // get random number between 0 and length of the available questions array
   const questionIdx = Math.floor(Math.random() * questionsArray.length);
@@ -94,14 +105,25 @@ $choices.forEach((choice) => {
       selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
     // console.log(classToApply);
 
+    if (classToApply === "correct") {
+      changeScore(SCORE_FOR_CORRECT);
+    } else if (classToApply === "incorrect" && userScore > 0) {
+      changeScore(SCORE_FOR_INCORRECT);
+    }
+
     selectedChoice.parentElement.classList.add(classToApply);
 
     // remove styles after interval
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 2000);
+    }, 250);
   });
 });
+
+const changeScore = (changeAmount) => {
+  userScore += changeAmount;
+  $userScoreText.textContent = userScore;
+};
 
 startGame();

@@ -1,4 +1,4 @@
-@import "./_mixins.scss";
+@import "./mixins";
 
 h2 {
   text-align: center;
@@ -26,6 +26,7 @@ h2 {
 
   &-text {
     padding: 1.5rem;
+    width: 100%;
   }
 }
 
@@ -35,4 +36,33 @@ h2 {
 
 .incorrect {
   background-color: red;
+}
+
+// GAME INFO
+#game-info {
+  display: flex;
+  justify-content: space-between;
+
+  .prefix {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .main-text {
+    text-align: center;
+  }
+}
+
+// PROGRESS BAR
+#progressBar {
+  width: 20rem;
+  height: 4rem;
+  border: 0.3rem solid blue;
+  margin-top: 1.3rem;
+
+  &Full {
+    height: 3.4rem;
+    background-color: blue;
+    width: 0%;
+  }
 }
