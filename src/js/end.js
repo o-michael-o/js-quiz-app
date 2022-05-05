@@ -8,32 +8,32 @@ let highScores;
 const MAX_HIGH_SCORES = 5;
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  console.log("DOM fully loaded and parsed");
+  // console.log("DOM fully loaded and parsed");
   // get score from local storage and display to DOM
 
   recentUserScore = localStorage.getItem("recentUserScore");
   $finalScore.innerText = recentUserScore;
-  console.log(recentUserScore);
+  // console.log(recentUserScore);
 
   // get high scores from local storage
   highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-  console.log(highScores);
+  // console.log(highScores);
 });
 
 const saveHighScore = (evt) => {
-  console.log("save high scores");
+  // console.log("save high scores");
   evt.preventDefault();
 
   const score = {
-    userScore: Math.floor(Math.random() * 100),
+    userScore: recentUserScore,
     username: username.value,
   };
 
-  console.log(score);
+  // console.log(score);
   highScores.push(score);
 
   highScores.sort((a, b) => b.userScore - a.userScore);
-  console.log(highScores);
+  // console.log(highScores);
 
   highScores.splice(5);
 

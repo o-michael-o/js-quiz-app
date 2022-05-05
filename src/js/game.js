@@ -3,42 +3,44 @@ const $choices = Array.from(document.querySelectorAll(".choice-text"));
 const $progressBarText = document.querySelector("#progressText");
 const $userScoreText = document.querySelector("#userScore");
 const $progressBarFull = document.querySelector("#progressBarFull");
+const $loadingSpinner = document.querySelector("#loadingSpinner");
+const $game = document.querySelector("#game");
 
 let currentQuestion = {};
 let isAcceptingChoice = false;
 let userScore = 0;
+// let questionsFromJSON = require("./questions.json");
 let questionCounter = 0;
 let questionsArray = [];
 
-// console.log($choices);
+fetch(
+  "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple"
+)
+  .then((res) => res.json())
+  .then((data) => {
+    // console.log(data.results);
+    questions = data.results.map((question) => {
+      const formattedQuestion = {
+        question: question.question,
+      };
 
-let questions = [
-  {
-    question: "Inside which HTML element do we put the JavaScript??",
-    choice1: "<script>",
-    choice2: "<javascript>",
-    choice3: "<js>",
-    choice4: "<scripting>",
-    answer: 1,
-  },
-  {
-    question:
-      "What is the correct syntax for referring to an external script called 'xxx.js'?",
-    choice1: "<script href='xxx.js'>",
-    choice2: "<script name='xxx.js'>",
-    choice3: "<script src='xxx.js'>",
-    choice4: "<script file='xxx.js'>",
-    answer: 3,
-  },
-  {
-    question: " How do you write 'Hello World' in an alert box?",
-    choice1: "msgBox('Hello World');",
-    choice2: "alertBox('Hello World');",
-    choice3: "msg('Hello World');",
-    choice4: "alert('Hello World');",
-    answer: 4,
-  },
-];
+      const choices = [...question.incorrect_answers];
+      formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
+      choices.splice(formattedQuestion.answer - 1, 0, question.correct_answer);
+
+      choices.forEach((choice, idx) => {
+        formattedQuestion["choice" + (idx + 1)] = choice;
+      });
+
+      // console.log(formattedQuestion);
+
+      return formattedQuestion;
+    });
+
+    // console.log(questions);
+
+    startGame();
+  });
 
 // CONSTANTS
 const SCORE_FOR_CORRECT = 10;
@@ -51,6 +53,8 @@ const startGame = () => {
   questionsArray = [...questions];
   // console.log(questionsArray);
   getNewQuestion();
+  $loadingSpinner.classList.add("hidden");
+  $game.classList.remove("hidden");
 };
 
 const getNewQuestion = () => {
@@ -91,14 +95,14 @@ const getNewQuestion = () => {
 
 $choices.forEach((choice) => {
   choice.addEventListener("click", (evt) => {
-    console.log(evt.target);
+    // console.log(evt.target);
     if (!isAcceptingChoice) return;
 
     isAcceptingChoice = false;
     const selectedChoice = evt.target;
     const selectedAnswer = selectedChoice.dataset["number"];
 
-    console.log(selectedAnswer == currentQuestion.answer);
+    // console.log(selectedAnswer == currentQuestion.answer);
 
     // apply style classes based on choice correctness
     const classToApply =
@@ -125,5 +129,3 @@ const changeScore = (changeAmount) => {
   userScore += changeAmount;
   $userScoreText.textContent = userScore;
 };
-
-startGame();
