@@ -1,0 +1,38 @@
+@import "./_mixins.scss";
+
+h2 {
+  text-align: center;
+}
+
+.choice {
+  &-container {
+    display: flex;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    border: 0.1rem solid blue;
+    background-color: white;
+    font-size: 1.8rem;
+
+    &:hover {
+      @include btnHover;
+    }
+  }
+
+  &-prefix {
+    padding: 1.5rem 2.5rem;
+    background-color: blue;
+    color: white;
+  }
+
+  &-text {
+    padding: 1.5rem;
+  }
+}
+
+.correct {
+  background-color: green;
+}
+
+.incorrect {
+  background-color: red;
+}
