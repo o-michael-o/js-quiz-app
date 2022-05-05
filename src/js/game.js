@@ -43,7 +43,7 @@ let questions = [
 const SCORE_FOR_CORRECT = 10;
 const MAX_QUESTION_NUM = 3;
 
-startGame = () => {
+const startGame = () => {
   questionCounter = 0;
   userScore = 0;
   questionsArray = [...questions];
@@ -51,7 +51,7 @@ startGame = () => {
   getNewQuestion();
 };
 
-getNewQuestion = () => {
+const getNewQuestion = () => {
   // check if any available questions in array or if asked the max number of questions
   if (questionsArray.length === 0 || questionCounter >= MAX_QUESTION_NUM) {
     return window.location.assign("./index.html");
