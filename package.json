@@ -4,8 +4,8 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel",
-    "build": "parcel build"
+    "dev": "parcel --open 'google chrome' src/index.html",
+    "build": "parcel build src/index.html"
   },
   "keywords": [],
   "author": "",

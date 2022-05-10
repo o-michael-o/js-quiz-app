@@ -1,7 +1,23 @@
+@import "./colors";
 @import "./mixins";
 
+// $davys-grey: #5b5b5bff;
+// $gray-web: #7d7c7aff;
+// $sage: #c9c19fff;
+// $light-goldenrod-yellow: #edf7d2ff;
+// $pale-spring-bud: #edf7b5ff;
+
+// $primary: #333;
+// $orange: #ffbd44;
+// $correct: #00ca4e;
+// $wrong: #ff605c;
+
 :root {
-  background-color: lightblue;
+  background-color: $gray-web;
+  background-image: url("../assets/background.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   font-size: 62.5%; // makes 1rem 10px
 }
 
@@ -24,7 +40,7 @@ h4 {
 
 h1 {
   font-size: 5.4rem;
-  color: blue;
+  color: $sage;
   margin-bottom: 5rem;
 
   & > span {
@@ -88,12 +104,12 @@ h3 {
 .btn {
   font-size: 1.8rem;
   padding: 1rem 0;
-  width: 20rem;
+  width: 25rem;
   text-align: center;
-  border: 0.1rem solid blue;
+  border: 0.2rem solid $orange;
   margin-bottom: 1rem;
   text-decoration: none;
-  color: blue;
+  color: $primary;
   background-color: white;
 
   &:hover {
@@ -107,6 +123,13 @@ h3 {
   }
 }
 
+// CARD
+.card {
+  background: $davys-grey;
+  padding: 3rem;
+  border-radius: 2rem;
+}
+
 // FORMS
 
 form {
@@ -117,7 +140,7 @@ form {
 
   input {
     margin-bottom: 1rem;
-    width: 20rem;
+    width: 30rem;
     padding: 1.5rem;
     font-size: 1.8rem;
     border: none;

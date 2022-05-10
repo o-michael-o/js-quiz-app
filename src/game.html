@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <title>Quiz - Play</title>
     <link rel="stylesheet" href="./scss/game.scss" />
     <link rel="stylesheet" href="./scss/main.scss" />
@@ -11,7 +12,7 @@
   <body>
     <div class="container">
       <div id="loadingSpinner"></div>
-      <div id="game" class="justify-center flex-column hidden">
+      <div id="game" class="game card justify-center flex-column hidden">
         <div id="game-info">
           <div class="game-info-item">
             <p class="prefix">Score</p>
@@ -19,8 +20,6 @@
           </div>
           <div class="game-info-item">
             <p class="prefix" id="progressText">Question</p>
-            <!-- <h1 class="main-text" id="questionCounter">1/3</h1> 
-            -->
             <div id="progressBar"><div id="progressBarFull"></div></div>
           </div>
         </div>

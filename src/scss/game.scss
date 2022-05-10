@@ -1,7 +1,14 @@
+@import "./colors";
 @import "./mixins";
 
 h2 {
   text-align: center;
+}
+
+.game {
+  #question {
+    color: $sage;
+  }
 }
 
 .choice {
@@ -9,7 +16,7 @@ h2 {
     display: flex;
     margin-bottom: 0.5rem;
     width: 100%;
-    border: 0.1rem solid blue;
+    border: 0.1rem solid $orange;
     background-color: white;
     font-size: 1.8rem;
 
@@ -20,7 +27,7 @@ h2 {
 
   &-prefix {
     padding: 1.5rem 2.5rem;
-    background-color: blue;
+    background-color: $orange;
     color: white;
   }
 
@@ -31,11 +38,11 @@ h2 {
 }
 
 .correct {
-  background-color: green;
+  background-color: $correct;
 }
 
 .incorrect {
-  background-color: red;
+  background-color: $incorrect;
 }
 
 // GAME INFO
@@ -46,6 +53,7 @@ h2 {
   .prefix {
     text-align: center;
     font-size: 2rem;
+    color: white;
   }
 
   .main-text {
@@ -57,12 +65,12 @@ h2 {
 #progressBar {
   width: 20rem;
   height: 4rem;
-  border: 0.3rem solid blue;
+  border: 0.3rem solid $orange;
   margin-top: 1.3rem;
 
   &Full {
     height: 3.4rem;
-    background-color: blue;
+    background-color: $orange;
     width: 0%;
   }
 }
@@ -71,7 +79,7 @@ h2 {
 #loadingSpinner {
   border: 1.6rem solid white;
   border-radius: 50%;
-  border-top: 1.6rem solid green;
+  border-top: 1.6rem solid $orange;
   width: 12rem;
   height: 12rem;
   animation: spinner 2s linear infinite;
