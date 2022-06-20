@@ -6,6 +6,9 @@ const $progressBarFull = document.querySelector("#progressBarFull");
 const $loadingSpinner = document.querySelector("#loadingSpinner");
 const $game = document.querySelector("#game");
 
+var he = require("he");
+console.log(he.decode("foo &amp bar"));
+
 let currentQuestion = {};
 let isAcceptingChoice = false;
 let userScore = 0;
@@ -20,10 +23,11 @@ fetch(
 )
   .then((res) => res.json())
   .then((data) => {
-    console.log(data.results);
+    // console.log(data.results);
+
     questions = data.results.map((question) => {
       const formattedQuestion = {
-        question: question.question,
+        question: he.decode(question.question),
       };
 
       const choices = [...question.incorrect_answers];
@@ -34,12 +38,10 @@ fetch(
         formattedQuestion["choice" + (idx + 1)] = choice;
       });
 
-      // console.log(formattedQuestion);
+      console.log(formattedQuestion);
 
       return formattedQuestion;
     });
-
-    console.log(questions);
 
     startGame();
   });
@@ -47,14 +49,12 @@ fetch(
 // CONSTANTS
 const SCORE_FOR_CORRECT = 10;
 const SCORE_FOR_INCORRECT = -2;
-const MAX_QUESTION_NUM = 3;
-console.log(SCORE_FOR_CORRECT);
+const MAX_QUESTION_NUM = 10;
 
 const startGame = () => {
   questionCounter = 0;
   userScore = 0;
   questionsArray = [...questions];
-  // console.log(questionsArray);
   getNewQuestion();
   $loadingSpinner.classList.add("hidden");
   $game.classList.remove("hidden");
@@ -124,7 +124,7 @@ $choices.forEach((choice) => {
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 250);
+    }, 1000);
   });
 });
 
