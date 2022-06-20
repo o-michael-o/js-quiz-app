@@ -7,7 +7,6 @@ const $loadingSpinner = document.querySelector("#loadingSpinner");
 const $game = document.querySelector("#game");
 
 var he = require("he");
-console.log(he.decode("foo &amp bar"));
 
 let currentQuestion = {};
 let isAcceptingChoice = false;
@@ -30,8 +29,8 @@ fetch(
         question: he.decode(question.question),
       };
 
-      const choices = [...question.incorrect_answers];
-      choices.forEach((choice) => he.decode(choice));
+      let choices = [...question.incorrect_answers];
+      choices = choices.map((choice) => he.decode(choice));
       question.correct_answer = he.decode(question.correct_answer);
       formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
       choices.splice(formattedQuestion.answer - 1, 0, question.correct_answer);
@@ -40,7 +39,7 @@ fetch(
         formattedQuestion["choice" + (idx + 1)] = choice;
       });
 
-      console.log(formattedQuestion);
+      // console.log(formattedQuestion);
 
       return formattedQuestion;
     });
@@ -66,7 +65,8 @@ const getNewQuestion = () => {
   // check if any available questions in array or if asked the max number of questions
   if (questionsArray.length === 0 || questionCounter >= MAX_QUESTION_NUM) {
     localStorage.setItem("recentUserScore", userScore);
-    return window.location.assign("./end.html");
+    const endPageUrl = new URL("../end.html", import.meta.url);
+    return window.location.assign(endPageUrl);
   }
   // increment counter
   questionCounter++;

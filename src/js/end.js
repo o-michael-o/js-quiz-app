@@ -41,7 +41,7 @@ const saveHighScore = (evt) => {
 
   setTimeout(() => {
     window.location.assign("/");
-  }, 1500);
+  }, 1000);
 };
 
 $username.addEventListener("keyup", () => {
