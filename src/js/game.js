@@ -31,6 +31,8 @@ fetch(
       };
 
       const choices = [...question.incorrect_answers];
+      choices.forEach((choice) => he.decode(choice));
+      question.correct_answer = he.decode(question.correct_answer);
       formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
       choices.splice(formattedQuestion.answer - 1, 0, question.correct_answer);
 
