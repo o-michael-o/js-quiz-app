@@ -13,12 +13,14 @@ let userScore = 0;
 let questionCounter = 0;
 let questionsArray = [];
 
+var questions = [];
+
 fetch(
   "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple"
 )
   .then((res) => res.json())
   .then((data) => {
-    // console.log(data.results);
+    console.log(data.results);
     questions = data.results.map((question) => {
       const formattedQuestion = {
         question: question.question,
@@ -37,7 +39,7 @@ fetch(
       return formattedQuestion;
     });
 
-    // console.log(questions);
+    console.log(questions);
 
     startGame();
   });
@@ -46,6 +48,7 @@ fetch(
 const SCORE_FOR_CORRECT = 10;
 const SCORE_FOR_INCORRECT = -2;
 const MAX_QUESTION_NUM = 3;
+console.log(SCORE_FOR_CORRECT);
 
 const startGame = () => {
   questionCounter = 0;
