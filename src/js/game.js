@@ -64,7 +64,7 @@ const getNewQuestion = () => {
   // check if any available questions in array or if asked the max number of questions
   if (questionsArray.length === 0 || questionCounter >= MAX_QUESTION_NUM) {
     localStorage.setItem("recentUserScore", userScore);
-    return window.location.assign("../end.html");
+    return window.location.assign("./end.html");
   }
   // increment counter
   questionCounter++;
