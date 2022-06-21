@@ -55,7 +55,7 @@ fetch(
 // CONSTANTS
 const SCORE_FOR_CORRECT = 10;
 const SCORE_FOR_INCORRECT = -2;
-const MAX_QUESTION_NUM = 2;
+const MAX_QUESTION_NUM = 10;
 
 const startGame = () => {
   questionCounter = 0;
@@ -199,5 +199,3 @@ $username.addEventListener("keyup", () => {
 });
 
 $saveScoreBtn.addEventListener("click", saveHighScore);
-
-export { userScore };
