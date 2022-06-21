@@ -5,6 +5,11 @@ const $userScoreText = document.querySelector("#userScore");
 const $progressBarFull = document.querySelector("#progressBarFull");
 const $loadingSpinner = document.querySelector("#loadingSpinner");
 const $game = document.querySelector("#game");
+const $gameContainer = document.querySelector("#game-container");
+const $endContainer = document.querySelector("#end-container");
+const $username = document.querySelector("#username");
+const $saveScoreBtn = document.querySelector("#saveScoreBtn");
+const $finalScore = document.querySelector("#finalScore");
 
 var he = require("he");
 
@@ -65,8 +70,13 @@ const getNewQuestion = () => {
   // check if any available questions in array or if asked the max number of questions
   if (questionsArray.length === 0 || questionCounter >= MAX_QUESTION_NUM) {
     localStorage.setItem("recentUserScore", userScore);
-    let endPageUrl = new URL("../end.html", import.meta.url);
-    return window.location.assign(endPageUrl);
+    // let endPageUrl = new URL("end.html", import.meta.url);
+    // console.log(endPageUrl);
+    // return window.location.assign("./end.html");
+    $gameContainer.style.display = "none";
+    $endContainer.style.display = "flex";
+    // $finalScore.innerText = recentUserScore;
+    $finalScore.innerText = userScore;
   }
   // increment counter
   questionCounter++;
@@ -126,7 +136,7 @@ $choices.forEach((choice) => {
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 100);
+    }, 1000);
   });
 });
 
@@ -134,3 +144,60 @@ const changeScore = (changeAmount) => {
   userScore += changeAmount;
   $userScoreText.textContent = userScore;
 };
+
+// SAVE SCORE SCREEN
+
+// const $username = document.querySelector("#username");
+// const $saveScoreBtn = document.querySelector("#saveScoreBtn");
+// const $finalScore = document.querySelector("#finalScore");
+
+let recentUserScore;
+let highScores;
+
+const MAX_HIGH_SCORES = 5;
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  // console.log("DOM fully loaded and parsed");
+  // get score from local storage and display to DOM
+
+  recentUserScore = localStorage.getItem("recentUserScore");
+  $finalScore.innerText = recentUserScore;
+  // console.log(recentUserScore);
+
+  // get high scores from local storage
+  highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  // console.log(highScores);
+});
+
+const saveHighScore = (evt) => {
+  // console.log("save high scores");
+  evt.preventDefault();
+
+  const score = {
+    userScore: recentUserScore,
+    username: username.value,
+  };
+
+  // console.log(score);
+  highScores.push(score);
+
+  highScores.sort((a, b) => b.userScore - a.userScore);
+  // console.log(highScores);
+
+  highScores.splice(5);
+
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+
+  setTimeout(() => {
+    window.location.assign("/");
+  }, 1000);
+};
+
+$username.addEventListener("keyup", () => {
+  // console.log(username.value);
+  $saveScoreBtn.disabled = !username.value;
+});
+
+$saveScoreBtn.addEventListener("click", saveHighScore);
+
+export { userScore };

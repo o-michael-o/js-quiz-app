@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./scss/main.scss" />
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="game-container">
       <div id="loadingSpinner"></div>
       <div id="game" class="game card justify-center flex-column hidden">
         <div id="game-info">
@@ -42,7 +42,26 @@
         </div>
       </div>
     </div>
+    <div class="container" id="end-container" style="display: none">
+      <div id="end" class="end card flex-center flex-column">
+        <h2>You score was:</h2>
+        <h1 id="finalScore">0</h1>
+        <h3>Enter your name to save it</h3>
+        <form>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Player name..."
+          />
+          <button type="submit" id="saveScoreBtn" class="btn">Save</button>
+        </form>
+        <a href="./game.html" class="btn">Play Again</a>
+        <a href="./index.html" class="btn">Home</a>
+      </div>
+    </div>
     <script src="./js/app.js" type="module"></script>
     <script src="./js/game.js" type="module"></script>
+    <script src="./js/end.js" type="module"></script>
   </body>
 </html>
