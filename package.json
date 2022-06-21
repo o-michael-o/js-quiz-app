@@ -4,15 +4,16 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel --open 'google chrome' src/index.html",
-    "build": "parcel build src/index.html"
+    "dev": "rimraf dist/ && parcel --open 'google chrome' src/index.html",
+    "build": "rimraf dist/ && parcel build src/index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
-    "parcel": "^2.5.0"
+    "parcel": "^2.5.0",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "he": "^1.2.0"

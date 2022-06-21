@@ -50,7 +50,7 @@ fetch(
 // CONSTANTS
 const SCORE_FOR_CORRECT = 10;
 const SCORE_FOR_INCORRECT = -2;
-const MAX_QUESTION_NUM = 10;
+const MAX_QUESTION_NUM = 2;
 
 const startGame = () => {
   questionCounter = 0;
@@ -65,7 +65,7 @@ const getNewQuestion = () => {
   // check if any available questions in array or if asked the max number of questions
   if (questionsArray.length === 0 || questionCounter >= MAX_QUESTION_NUM) {
     localStorage.setItem("recentUserScore", userScore);
-    const endPageUrl = new URL("../end.html", import.meta.url);
+    let endPageUrl = new URL("../end.html", import.meta.url);
     return window.location.assign(endPageUrl);
   }
   // increment counter
@@ -126,7 +126,7 @@ $choices.forEach((choice) => {
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 1000);
+    }, 100);
   });
 });
 
